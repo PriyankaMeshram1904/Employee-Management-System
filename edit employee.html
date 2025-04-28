@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Edit Employee</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Edit Employee</h2>
+        <!-- The form action URL dynamically includes the employee ID using Thymeleaf -->
+        <form th:action="@{/update-employee/{id}(id=${employee.id})}" th:object="${employee}" method="post">
+            <!-- Name field with pre-filled value -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" th:value="${employee.name}" required>
+            </div>
+            <!-- Email field with pre-filled value -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" th:value="${employee.email}" required>
+            </div>
+            <!-- Department field with pre-filled value -->
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <input type="text" class="form-control" id="department" name="department" th:value="${employee.department}" required>
+            </div>
+            <!-- Submit button to update the employee -->
+            <button type="submit" class="btn btn-primary">Update Employee</button>
+        </form>
+    </div>
+</body>
+</html>
