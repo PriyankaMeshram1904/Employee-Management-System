@@ -1,2 +1,2 @@
 # Employee-Management-System
-Project Employee Management System
+Created an Employee Management System using Java, Spring Boot, and MySQL database. Implemented complete CRUD (Create, Read, Update, Delete) operations to manage employee data efficiently. Integrated the backend with the frontend (HTML, CSS) and database to understand the full workflow of a web application. Built REST APIs in Spring Boot and connected them to the frontend for smooth data interaction. This project helped in understanding how backend services interact with the database and frontend to perform real-time operations.
