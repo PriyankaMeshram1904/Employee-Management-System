@@ -1,0 +1,64 @@
+package com.example.employeemanagement.controller;
+
+import com.example.employeemanagement.model.Employee;
+import com.example.employeemanagement.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+public class EmployeeController {
+
+    @Autowired
+    private EmployeeService service;
+
+    // Serve the home page and pass the list of employees to the view
+    @GetMapping("/")
+    public String homePage(Model model) {
+        List<Employee> employees = service.findAll();
+        model.addAttribute("employees", employees);
+        return "index";
+    }
+
+    // Serve the add-employee page
+    @GetMapping("/add-employee")
+    public String addEmployeePage() {
+        return "add-employee";
+    }
+
+    // Handle form submission to create a new employee
+    @PostMapping("/add-employee")
+    public String addEmployee(@ModelAttribute Employee employee) {
+        service.saveEmployee(employee);
+        return "redirect:/";
+    }
+    
+    
+ // Handle form submission to update an existing employee
+    @PostMapping("/update-employee/{id}")
+    public String updateEmployee(@PathVariable Long id, @ModelAttribute Employee employee) {
+        employee.setId(id);  // Ensure the ID is set to the correct employee
+        service.saveEmployee(employee);  // Save the updated employee
+        return "redirect:/";  // Redirect to home page after updating
+    }
+
+    @GetMapping("/edit-employee/{id}")
+    public String editEmployeePage(@PathVariable Long id, Model model) {
+        Employee employee = service.findById(id);
+        if (employee == null) {
+            return "redirect:/"; // Redirect if employee not found
+        }
+        model.addAttribute("employee", employee);
+        return "edit-employe";
+    }
+
+    // Delete an employee and redirect to the home page
+    @GetMapping("/delete-employee/{id}")
+    public String deleteEmployee(@PathVariable Long id) {
+        service.deleteEmployee(id);
+        return "redirect:/";
+    }
+}
